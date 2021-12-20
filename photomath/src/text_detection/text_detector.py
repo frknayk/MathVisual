@@ -1,31 +1,33 @@
 # import packages
-import numpy as np
 import cv2
+import numpy as np
+
 
 class DetectorText:
     """Preprocess and image and return each detected texts:
         1. cropped image
         2. cropped image's bounding box coordinates
     """
-    def __init__(self, 
-        kernel_size_:tuple=(20,20),
-        dilation_iterations_:int=1,
-        debug_:bool=False) -> None:
+
+    def __init__(self,
+                 kernel_size_: tuple = (20, 20),
+                 dilation_iterations_: int = 1,
+                 debug_: bool = False) -> None:
         self.kernel_size = kernel_size_
         self.dilation_iterations = dilation_iterations_
         self.debug = debug_
 
-    def __find_contours(self, img:np.ndarray)->list:
+    def __find_contours(self, img_: np.ndarray) -> list:
         """Preprocess image and find contours in the image
 
         Args:
-            img (np.ndarray): Read image
+            img_ (np.ndarray): Read image
 
         Returns:
             list: List of contours
         """
         # Convert the image to gray scale
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(img_, cv2.COLOR_BGR2GRAY)
 
         # Performing OTSU threshold
         ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
@@ -42,24 +44,25 @@ class DetectorText:
 
         # Finding contours
         contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
-                                            cv2.CHAIN_APPROX_NONE)
+                                               cv2.CHAIN_APPROX_NONE)
 
         return contours
 
-    def __draw_bounding_boxes(self, img:np.ndarray, contours:list)->list:
+    @staticmethod
+    def __draw_bounding_boxes(img_: np.ndarray, contours: list) -> list:
         """Draw bounding boxes around contours
 
         Args:
-            img (np.ndarray): [description]
+            img_ (np.ndarray): [description]
             contours (list) : [description]
 
         Returns:
             list: [description]
         """
         # List of cropped images and their bbox coordinates
-        cropped_imgs_bbox = []
+        list_cropped_images_bbox = []
         # Creating a copy of image
-        im2 = img.copy()
+        im2 = img_.copy()
         # Looping through the identified contours
         # Then rectangular part is cropped and passed on
         # to pytesseract for extracting text from it
@@ -71,37 +74,41 @@ class DetectorText:
             # Cropping the text block for giving input to OCR
             cropped = im2[y:y + h, x:x + w]
             cropped_dict = {
-                'img':cropped,
+                'img': cropped,
                 'coordinates': {
-                    'x':x,
-                    'y':y,
-                    'w':w,
-                    'h':h
-                }
+                    'x': x,
+                    'y': y,
+                    'w': w,
+                    'h': h
+                },
+                'rect': rect
             }
-            cropped_imgs_bbox.append(cropped_dict)
-        return cropped_imgs_bbox
+            list_cropped_images_bbox.append(cropped_dict)
+        return list_cropped_images_bbox
 
-    def detect_text(self, img:np.ndarray)->list:
+    def detect_text(self, img: np.ndarray) -> list:
         contours = self.__find_contours(img)
-        cropped_imgs_bbox = self.__draw_bounding_boxes(img, contours)
-        return cropped_imgs_bbox
+        cropped_images_bbox = self.__draw_bounding_boxes(img, contours)
+        return cropped_images_bbox
+
 
 if __name__ == '__main__':
     import pytesseract
+
     # Read image from which text needs to be extracted
     # img = cv2.imread("/home/anton/Furkan/coding/repos_me/PhotoMath/photomath/src/text_detection/figures/2_min_1.png")
-    img = cv2.imread("/home/anton/Furkan/coding/repos_me/PhotoMath/photomath/src/text_detection/figures/handwritten-numbers.jpg")
-    text_detector = DetectorText(kernel_size_=(3,3))
-    cropped_imgs_bbox = text_detector.detect_text(img)
-    for idx,cropped_dict in enumerate(cropped_imgs_bbox):
-        print(idx)
-        cropped = cropped_dict['img']
+    img_read = cv2.imread(
+        "/home/anton/Furkan/coding/repos_me/PhotoMath/photomath/src/text_detection/figures/handwritten-numbers.jpg")
+    text_detector = DetectorText(kernel_size_=(3, 3))
+    cropped_images_bbox_ = text_detector.detect_text(img_read)
+    for idx_, cropped_dict_ in enumerate(cropped_images_bbox_):
+        print(idx_)
+        cropped_img = cropped_dict_['img']
         # Apply OCR on the cropped image
-        text = pytesseract.image_to_string(cropped,
-                                    config="--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789+-x/()=")
+        text = pytesseract.image_to_string(cropped_img,
+                                           config="--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789+-x/()=")
         text = text if len(text) < 2 else text[0]
-        cv2.imshow("Character: '{0}' ".format(text),cropped)
+        cv2.imshow("Character: '{0}' ".format(text), cropped_img)
         cv2.waitKey(0)
     cv2.destroyAllWindows()
     print("Finished.")

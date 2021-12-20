@@ -4,9 +4,12 @@ __pycache__/
 *$py.class
 
 **/.vscode/
+.idea/
 runs/
 Results/
 data/
+
+recognized.txt
 
 # C extensions
 *.so

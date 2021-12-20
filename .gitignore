@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+**/.vscode/
+runs/
+Results/
+data/
+
 # C extensions
 *.so
 
@@ -119,6 +124,10 @@ venv.bak/
 
 # mkdocs documentation
 /site
+
+
+# mkdocs documentation
+/reports
 
 # mypy
 .mypy_cache/

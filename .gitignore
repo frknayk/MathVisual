@@ -8,6 +8,8 @@ __pycache__/
 runs/
 Results/
 data/
+models/
+checkpoints/
 
 recognized.txt
 

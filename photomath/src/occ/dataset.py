@@ -16,9 +16,8 @@ class DatasetLoader:
     Download the dataset from here :https://www.kaggle.com/clarencezhao/handwritten-math-symbol-dataset
     """
     def __init__(self, dataset_path:str) -> None:
-        self.train_image_paths, self.train_label_paths = self.__set_train_images(dataset_path) 
-        self.test_image_paths, self.test_label_paths = self.__set_test_images(dataset_path)
-        self.__preprocess_data()
+        self.train_label_paths, self.train_image_paths = self.__set_train_images(dataset_path) 
+        self.test_label_paths, self.test_image_paths = self.__set_test_images(dataset_path)
 
     def create_train_test_data(self):
         """Create train/test dataset
@@ -101,7 +100,8 @@ class DatasetLoader:
             img = cv2.resize(img, (100, 100))
             img = np.array(img)     
             X_test_.append(img)
-        return X_train_, X_test_
+ 
+        return np.array(X_train_), np.array(X_test_)
     
     def __create_labels(self, train_label_paths:str, test_label_paths:str):
         """Encode labels"""
@@ -113,8 +113,7 @@ class DatasetLoader:
         return y_train_, y_test_
 
     def __preprocess_data(self,X_train, X_test):
-        """label encoding the 16 symbols"""
-        # Normalize data
+        """Normalize data"""
         X_train = X_train.astype('float32')
         X_test = X_test.astype('float32')
         X_train /= 255

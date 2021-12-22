@@ -1,3 +1,6 @@
+import os
+from datetime import datetime
+import pandas as pd
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
@@ -7,6 +10,7 @@ class OccModel:
     def __init__(self) -> None:
         self.model = None
         self.history = None
+        self.create_model()
 
     def create_model(self):
         # using sequential model for training
@@ -40,52 +44,69 @@ class OccModel:
             optimizer="adam",
             metrics=['accuracy']
         )
-
         model.summary()
         self.model = model
     
-    def train(self,X_train,y_train):
+    def train(self,X_train,y_train,train_config):
         # training the model
         self.history = self.model.fit(
             X_train,
             y_train,
-            batch_size=50,
-            epochs=200,
-            validation_split=0.2,
-            shuffle=True
+            batch_size=train_config['batch_size'],
+            epochs=train_config['epochs'],
+            validation_split=train_config['validation_split'],
+            shuffle=train_config['shuffle']
         )
 
-    def plot_acc(self):
-        """Plot model accuracy"""
-        # displaying the model accuracy
-        plt.plot(self.history.history['accuracy'], label='train', color="red")
-        plt.plot(self.history.history['val_accuracy'], label='validation', color="blue")
-        plt.title('Model accuracy')
+    def plot_history(self):
+        plt.figure(1)
+        plt.plot(self.history.history['loss'],label='loss_train')
+        plt.plot(self.history.history['val_loss'],label='loss_validation')
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
         plt.legend(loc='upper left')
+        plt.show()
+        plt.figure(1)
+        plt.plot(self.history.history['val_accuracy'], label='acc_validation')
+        plt.plot(self.history.history['accuracy'], label='acc_train', color="red")
+        plt.title('model accuracy')
         plt.ylabel('accuracy')
         plt.xlabel('epoch')
-        plt.show()
-
-    def plot_loss(self):
-        # displaying the model loss
-        plt.plot(self.history.history['loss'], label='train', color="red")
-        plt.plot(self.history.history['val_loss'], label='validation', color="blue")
-        plt.title('Model loss')
         plt.legend(loc='upper left')
-        plt.xlabel('epoch')
-        plt.ylabel('loss')
         plt.show()
-    
-    def show_performance_test(self,X_test,y_test):
-        score, acc = self.model.evaluate(X_test, y_test)
-        print('Test score:', score)
-        print('Test accuracy:', acc)
 
-    def show_performance_train(self,X_train,y_train):
-        score, acc = self.model.evaluate(X_train, y_train)
-        print('Train score:', score)
-        print('Train accuracy:', acc)
+    def show_performance(self,X_data,y_data):
+        score, acc = self.model.evaluate(X_data, y_data)
+        print('score:', score)
+        print('accuracy:', acc)
 
     def inference(self,sample):
         return self.model.predict(sample)
-        
+
+    def save_model(self):
+        # Trim date
+        date = datetime.now().strftime('%Y-%m-%d %H:%M:%S').replace(' ','__')
+        date = date.replace(':','_')
+        date = date.replace('-','_')
+        path_current = os.getcwd()
+        path_folder = path_current+'/checkpoints'
+        path_model = path_folder+"/models"
+        path_csv = path_folder+"/histories/"
+        try:
+            os.mkdir(path_folder)
+            os.mkdir(path_model)
+            os.mkdir(path_csv)
+        except FileExistsError:
+            pass
+        except Exception as e:
+            print(e)
+            return
+        # Save model
+        path_model = path_model + '/' + date +'.h5'
+        self.model.save(path_model)
+        # Save history
+        path_csv = path_csv + '/' + date + '.csv'      
+        hist_df = pd.DataFrame(self.history.history) 
+        with open(path_csv, mode='w') as f:
+            hist_df.to_csv(f)

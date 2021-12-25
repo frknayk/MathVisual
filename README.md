@@ -9,14 +9,6 @@ Follow instructions at [installation readme file](docs/install.md)
 
 
 ## Model Training
-
-### Dataset
-
-### Training custom model
-
-### Training RESNET-50
-
-### Model Evaluation 
-
+Follow instructions at [training/inference readme file](docs/train_inference.md)
 
 

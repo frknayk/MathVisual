@@ -6,26 +6,20 @@ from MathVisual.src.occ.model import OccModel
 from MathVisual.src.occ.dataset import DatasetLoader, symbols_list
 import tensorflow as tf
 
-"""===USAGE=== 
-Run from project folder path:
-python MathVisual/src/occ/inference.py -p ABSOLUTE_PATH_TO_DATASET
-"""
-
 if __name__ == '__main__':
     # Parse arguments
-    path_dataset = "/home/{0}/Downloads/archive/".format(os.getlogin())
-    path_model = "/home/{0}/Furkan/coding/repos_me/MathVisual/checkpoints/models/model_200epoch_custom.h5".format(os.getlogin())
-    # path_model = "/home/{0}/Furkan/coding/repos_me/MathVisual/checkpoints/models/models_resnet_acc.h5".format(os.getlogin())
-    parser = argparse.ArgumentParser(description='Trained model absolute path')
-    parser.add_argument('-p', '--model-path', default=path_model)
+    parser = argparse.ArgumentParser(description='Test trained model with dataset')
+    parser.add_argument('-path', '--model-path', default="MathVisual/src/occ/model_200epoch_custom.h5")
+    parser.add_argument('-dataset', '--dataset-path')
     args = parser.parse_args()
 
     # Create the dataset loader object
+    path_dataset = args.dataset_path
     dataset_loader = DatasetLoader(path_dataset)
     X_train,X_test = dataset_loader.create_train_test_data()
     y_train, y_test = dataset_loader.create_labels()
     y_train_labels, y_test_labels = dataset_loader.get_labels()
-    
+
     # Load model
     occ_model = OccModel()
     occ_model.load_model(args.model_path)

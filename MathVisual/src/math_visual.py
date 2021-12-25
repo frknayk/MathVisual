@@ -1,5 +1,6 @@
-import random
 from MathVisual.src.text_detection.text_detector import DetectorText
+from MathVisual.src.occ.model import OccModel
+from MathVisual.src.solver import solve
 
 fig = plt.figure()
 

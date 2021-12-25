@@ -10,6 +10,11 @@ import cv2
 
 symbols_list = ['zero','one','two','three','four','five','six','seven','eight','nine','minus','plus','equal','div','decimal','times']
 
+def create_label_encoder(symbols_list_):
+    label_encoder = preprocessing.LabelEncoder()
+    label_encoder.fit(symbols_list_)
+    return label_encoder
+
 class DatasetLoader:
     """Dataset loader class for numbers+symbols dataset
     ---
@@ -55,10 +60,7 @@ class DatasetLoader:
         plt.show()
     
     def set_label_encoder(self,symbols_list):
-        # Set label encoder
-        label_encoder = preprocessing.LabelEncoder()
-        label_encoder.fit(symbols_list)
-        return label_encoder
+        return create_label_encoder(symbols_list)
 
     def __set_test_images(self, path_dataset):
         """Set test image names and train label names  

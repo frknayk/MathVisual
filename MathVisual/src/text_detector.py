@@ -64,9 +64,6 @@ class DetectorText:
         # Creating a copy of image
         im2 = img_.copy()
         # Looping through the identified contours
-        # Then rectangular part is cropped and passed on
-        # to pytesseract for extracting text from it
-        # Extracted text is then written into the text file
         for idx, cnt in enumerate(contours):
             x, y, w, h = cv2.boundingRect(cnt)
             # # Drawing a rectangle on copied image
@@ -92,14 +89,9 @@ class DetectorText:
         cropped_images_bbox = self.__draw_bounding_boxes(img, contours)
         return cropped_images_bbox
 
-
-if __name__ == '__main__':
+def example_pytesseract():
     import pytesseract
-
-    # Read image from which text needs to be extracted
-    # img = cv2.imread("/home/anton/Furkan/coding/repos_me/MathVisual/MathVisual/src/text_detection/figures/2_min_1.png")
-    img_read = cv2.imread(
-        "/home/anton/Furkan/coding/repos_me/MathVisual/MathVisual/src/text_detection/figures/handwritten-numbers.jpg")
+    img_read = cv2.imread("MathVisual/src/figures/handwritten-numbers.jpg")
     text_detector = DetectorText(kernel_size_=(3, 3))
     cropped_images_bbox_ = text_detector.detect_text(img_read)
     for idx_, cropped_dict_ in enumerate(cropped_images_bbox_):

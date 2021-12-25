@@ -1,11 +1,11 @@
 import random
-from photomath.src.text_detection.text_detector import DetectorText
+from MathVisual.src.text_detection.text_detector import DetectorText
 
 fig = plt.figure()
 
 # Single image detect
 img_read = cv2.imread(
-    "/home/anton/Furkan/coding/repos_me/PhotoMath/photomath/src/text_detection/figures/handwritten-numbers.jpg")
+    "/home/anton/Furkan/coding/repos_me/MathVisual/MathVisual/src/text_detection/figures/handwritten-numbers.jpg")
 
 dim_img = (100,100)
 text_detector = DetectorText(kernel_size_=(3, 3))

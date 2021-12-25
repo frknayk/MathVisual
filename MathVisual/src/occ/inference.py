@@ -2,43 +2,20 @@ import os
 import argparse
 import numpy as np
 import cv2
-from photomath.src.occ.model import OccModel
-from photomath.src.occ.dataset import DatasetLoader, symbols_list
+from MathVisual.src.occ.model import OccModel
+from MathVisual.src.occ.dataset import DatasetLoader, symbols_list
 import tensorflow as tf
 
 """===USAGE=== 
 Run from project folder path:
-python photomath/src/occ/inference.py -p ABSOLUTE_PATH_TO_DATASET
+python MathVisual/src/occ/inference.py -p ABSOLUTE_PATH_TO_DATASET
 """
-
-def predict(occ_model, img:np.ndarray,label_encoder):
-    """Predict label of image
-
-    Parameters
-    ----------
-    model_path : str
-        [description]
-    img : np.ndarray
-        [description]
-    """
-    # Read a image and preprocess for inference
-    img = X_test[0]
-    img = cv2.resize(img, (100, 100))        
-    img = np.array(img)
-    img = np.expand_dims(img, axis=0)
-    img = img.astype('float32')
-    img /= 255
-    # Get prediction
-    prediction = occ_model.predict(img)
-    result = np.argsort(prediction)  
-    result = result[0][::-1]
-    final_label = label_encoder.inverse_transform(np.array(result))
-    return final_label
 
 if __name__ == '__main__':
     # Parse arguments
     path_dataset = "/home/{0}/Downloads/archive/".format(os.getlogin())
-    path_model = "/home/{0}/Furkan/coding/repos_me/PhotoMath/checkpoints/models/model_200epoch_custom.h5".format(os.getlogin())
+    path_model = "/home/{0}/Furkan/coding/repos_me/MathVisual/checkpoints/models/model_200epoch_custom.h5".format(os.getlogin())
+    # path_model = "/home/{0}/Furkan/coding/repos_me/MathVisual/checkpoints/models/models_resnet_acc.h5".format(os.getlogin())
     parser = argparse.ArgumentParser(description='Trained model absolute path')
     parser.add_argument('-p', '--model-path', default=path_model)
     args = parser.parse_args()

@@ -1,13 +1,14 @@
 import argparse
 import os
-from photomath.src import occ
-from photomath.src.occ.model import OccModel
-from photomath.src.occ.dataset import DatasetLoader
+from MathVisual.src.occ.model import OccModel
+from MathVisual.src.occ.dataset import DatasetLoader
+from MathVisual.src.occ.models.custom_model import model as model_custom
+# from MathVisual.src.occ.models.resnet_50 import model as model_resnet
 
 
 """===USAGE=== 
 Run from project folder path:
-python photomath/src/occ/train.py -p ABSOLUTE_PATH_TO_DATASET
+    python MathVisual/src/occ/train.py -p ABSOLUTE_PATH_TO_DATASET
 """
 
 if __name__ == '__main__':
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     y_train, y_test = dataset_loader.create_labels()
     # Create the vision model object
     occ_model = OccModel()
-    occ_model.create_model()
+    occ_model.set_model(model_custom)
     train_config = {
         'batch_size': 50,
         'epochs': 200,

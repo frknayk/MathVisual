@@ -1,10 +1,10 @@
-# PhotoMath
+# MathVisual
 Perform math operations from image
 
 # Installation
 ## 1. Create the conda environment
-- ```conda create -n photomath python=3.7```
-- ```conda activate photomath```
+- ```conda create -n MathVisual python=3.7```
+- ```conda activate MathVisual```
 
 ## 2. Install The Tesseract Project
 
@@ -27,3 +27,16 @@ Perform math operations from image
 
 ## 3. Install the project
 - ```python setup.py install --user```
+
+## Model Training
+
+### Dataset
+
+### Training custom model
+
+### Training RESNET-50
+
+### Model Evaluation 
+
+
+

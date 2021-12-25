@@ -69,8 +69,9 @@ class DetectorText:
         # Extracted text is then written into the text file
         for idx, cnt in enumerate(contours):
             x, y, w, h = cv2.boundingRect(cnt)
-            # Drawing a rectangle on copied image
-            rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            # # Drawing a rectangle on copied image
+            # rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            rect = None
             # Cropping the text block for giving input to OCR
             cropped = im2[y:y + h, x:x + w]
             cropped_dict = {

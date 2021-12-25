@@ -18,6 +18,7 @@ class DatasetLoader:
     def __init__(self, dataset_path:str) -> None:
         self.train_label_paths, self.train_image_paths = self.__set_train_images(dataset_path) 
         self.test_label_paths, self.test_image_paths = self.__set_test_images(dataset_path)
+        self.label_encoder = None
 
     def create_train_test_data(self):
         """Create train/test dataset
@@ -42,6 +43,9 @@ class DatasetLoader:
         y_train, y_test = self.__create_labels(self.train_label_paths, self.test_label_paths)
         return y_train, y_test
 
+    def get_labels(self):
+        return self.train_label_paths, self.test_label_paths
+
     def show_random_sample(self):
         """Plot a random dataset sample"""
         random_idx = random.randint(0,self.train_image_paths.__len__())
@@ -49,6 +53,12 @@ class DatasetLoader:
         plt.imshow(image)
         plt.title("Label: " + self.train_label_paths[random_idx])
         plt.show()
+    
+    def set_label_encoder(self,symbols_list):
+        # Set label encoder
+        label_encoder = preprocessing.LabelEncoder()
+        label_encoder.fit(symbols_list)
+        return label_encoder
 
     def __set_test_images(self, path_dataset):
         """Set test image names and train label names  
@@ -100,16 +110,19 @@ class DatasetLoader:
             img = cv2.resize(img, (100, 100))
             img = np.array(img)     
             X_test_.append(img)
- 
         return np.array(X_train_), np.array(X_test_)
     
     def __create_labels(self, train_label_paths:str, test_label_paths:str):
         """Encode labels"""
-        label_encoder = preprocessing.LabelEncoder()
-        y_train_temp = label_encoder.fit_transform(train_label_paths)
-        y_test_temp = label_encoder.fit_transform(test_label_paths)
-        y_train_ = keras.utils.np_utils.to_categorical(y_train_temp, 16)
-        y_test_ = keras.utils.np_utils.to_categorical(y_test_temp, 16)
+        # There is 16 numbers of labels, see 'symbols_list' at the beginning of file
+        num_unique_test = list(set(test_label_paths)).__len__()
+        num_unique_train = list(set(train_label_paths)).__len__()
+        # Set label encoder
+        label_encoder = self.set_label_encoder(symbols_list)
+        y_train_temp = label_encoder.transform(train_label_paths)
+        y_test_temp = label_encoder.transform(test_label_paths)
+        y_train_ = keras.utils.np_utils.to_categorical(y_train_temp, num_unique_train)
+        y_test_ = keras.utils.np_utils.to_categorical(y_test_temp, num_unique_test)
         return y_train_, y_test_
 
     def __preprocess_data(self,X_train, X_test):
@@ -119,24 +132,3 @@ class DatasetLoader:
         X_train /= 255
         X_test /= 255
         return X_train, X_test
-
-
-# fig, axs= plt.subplots(2,5, figsize=[24,12])
-# count=0
-# for i in range(2):    
-#     for j in range(5):  
-#         image = cv2.imread(test_image[count + count*100])
-#         img = cv2.resize(image, (100, 100))        
-#         img = np.array(img)
-#         img = np.expand_dims(img, axis=0)
-#         img = img.astype('float32')
-#         img /= 255
-#         pred = model.predict(img)        
-#         result = np.argsort(pred)  
-#         result = result[0][::-1]
-#         final_label = label_encoder.inverse_transform(np.array(result))
-#         axs[i][j].imshow(image)
-#         axs[i][j].set_title(str("Prediction: " + final_label[0]), fontsize = 14)        
-#         count += 1
-# plt.suptitle("All predictions are shown in title", fontsize = 18)
-# plt.show()

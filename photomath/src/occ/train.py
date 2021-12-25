@@ -1,5 +1,6 @@
 import argparse
 import os
+from photomath.src import occ
 from photomath.src.occ.model import OccModel
 from photomath.src.occ.dataset import DatasetLoader
 
@@ -20,12 +21,15 @@ if __name__ == '__main__':
     y_train, y_test = dataset_loader.create_labels()
     # Create the vision model object
     occ_model = OccModel()
+    occ_model.create_model()
     train_config = {
         'batch_size': 50,
-        'epochs': 10,
+        'epochs': 200,
         'validation_split': 0.2,
         'shuffle': True}
     occ_model.train(X_train,y_train,train_config)
-    occ_model.show_performance(X_test,y_test)
-    occ_model.plot_history()
-    # occ_model.save_model()
+    occ_model.show_performance(X_test,y_test,"Train")
+    occ_model.show_performance(X_test,y_test,"Test")
+    occ_model.save_model("model_200epoch_custom")
+    occ_model.plot_accuracy()
+    occ_model.plot_loss()

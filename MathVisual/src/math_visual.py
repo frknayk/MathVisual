@@ -87,7 +87,7 @@ if __name__ == '__main__':
     # Parse arguments
     parser = argparse.ArgumentParser(description='Test trained model with dataset')
     parser.add_argument('-path', '--model-path', default="checkpoints/model_200epoch_custom.h5")
-    parser.add_argument('-image', '--image-path', default="MathVisual/src/figures/2021_12_26_05x_Kleki.png")
+    parser.add_argument('-image', '--image-path', default="MathVisual/src/figures/2021_12_25_0wi_Kleki.png")
     args = parser.parse_args()
 
     # Create the dataset loader object
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     img_read = cv2.imread(path_image)
 
     # Text detector
-    text_detector = DetectorText(kernel_size_=(100,100))
+    text_detector = DetectorText(kernel_size_=(80,80))
     cropped_images_bbox = text_detector.detect_text(img_read)
     label_encoder = create_label_encoder(symbols_list)
 

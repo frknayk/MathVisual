@@ -308,6 +308,11 @@ different tickness. Training a GAN for creating newer samples and then retrainin
 Performing only basic mathematical operations is not that useful. By adding newer symbols to dataset, MathVisual must handle more complex
 mathematical operations like integral,limit,derivative and trigonometry. 
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h3 id="dockerize"> Dockerize</h3>
+Dockerization of environment one of the priorities
+
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 

@@ -41,7 +41,6 @@ def plot_equation(results_dict, final_equation:str):
     # Plot sorted images by order
     fig = plt.figure()
     # Final Image created from stacked images
-    # num_1 EXPRESSION(+,-,/) num_2 = final_result
     image_one_big = np.zeros((100,500,3))
     # One big image creator loop
     idx_first = 0

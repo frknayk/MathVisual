@@ -25,7 +25,7 @@
     <li><a href="#training-testing"> ➤ Training&Testing&Usage</a>
         <ul>
           <li><a href="#training">Training Steps</a></li>
-          <li><a href="#training-yours">Train YOUR model</a></li>
+          <li><a href="#add-yours">Add YOUR model</a></li>
           <li><a href="#test">Test Trained Model</a></li>
           <li><a href="#usage">Usage</a></li>
       </ul>
@@ -169,7 +169,7 @@ After installation `checkpoints/` folder will be created under main directory an
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 
-<h2 id="training-yours"> :large_orange_diamond: Training YOUR Model</h2>
+<h2 id="add-yours"> :large_orange_diamond: Adding YOUR Model</h2>
 
   <ol>
     <li>Create your model under `MathVisual/src/occ/models` folder</li> 

@@ -50,7 +50,7 @@ def plot_equation(results_dict, final_equation:str):
         idx_first = idx_first + 100
         idx_last = idx_last + 100
     # Plot equation
-    plt.title(final_equation,fontsize = 18)
+    plt.title("Predicted Equation:{0}".format(final_equation),fontsize = 18)
     plt.imshow(image_one_big)
     plt.show()
 

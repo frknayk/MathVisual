@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 # TensorFlow and tf.keras
 import tensorflow as tf
 
+from MathVisual.src.utils import Bcolors
+
 class OccModel:
     def __init__(self) -> None:
         self.model = None
@@ -91,3 +93,32 @@ class OccModel:
         except Exception as E:
             print(E)
             return False
+
+def plot_history(path:str):
+    history = None
+    try:
+        history = pd.read_csv(path)
+    except Exception as E:
+        Bcolors.fail("Failed to read the history CSV file at {0}".format(
+            path))
+    # Plot Accuracy
+    plt.figure(1)
+    plt.plot(history['val_accuracy'], label='acc_validation')
+    plt.plot(history['accuracy'], label='acc_train', color="red")
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(loc='upper left')
+    plt.show()
+    plt.figure(1)
+    plt.plot(history['loss'],label='loss_train')
+    plt.plot(history['val_loss'],label='loss_validation')
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(loc='upper left')
+    plt.show()
+
+
+if __name__ == '__main__':
+    plot_history("checkpoints/histories/model_200epoch_custom.csv")

@@ -23,16 +23,26 @@
     <li><a href="#preprocessing"> ➤ Preprocessing</a></li>
     <li><a href="#install"> ➤ Installation</a></li>
     <li><a href="#training-testing"> ➤ Training&Testing&Usage</a>
-        <ul>
-          <li><a href="#training">Training Steps</a></li>
-          <li><a href="#add-yours">Add YOUR model</a></li>
-          <li><a href="#test">Test Trained Model</a></li>
-          <li><a href="#usage">Usage</a></li>
+      <ul>
+        <li><a href="#training">Training Steps</a></li>
+        <li><a href="#add-yours">Add YOUR model</a></li>
+        <li><a href="#test">Test Trained Model</a></li>
+        <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
-    <li><a href="#results-and-discussion"> ➤ Results and Discussion</a></li>
-    <li><a href="#future"> ➤ Future Work and TODOs</a></li>
-    <li><a href="#contributors"> ➤ Contributors</a></li>
+    <li><a href="#results-and-discussion"> ➤ Results and Discussion</a>
+      <ul>
+        <li><a href="#results-training">Model Performance Metrics</a></li>
+        <li><a href="#results-training-loss">Loss Function</a></li>
+      </ul>
+    </li>
+    <li><a href="#future"> ➤ Future Work and TODOs</a>
+      <ul>
+        <li><a href="#dataset-extention">Dataset Extention</a></li>
+        <li><a href="#model-improvements">Increasing Model Robostness</a></li>
+        <li><a href="#calculus">Performing More Complex Operations Like Integral,Limit,Derivative etc.</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
 
@@ -209,6 +219,112 @@ After installation `checkpoints/` folder will be created under main directory an
 </p>
 
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+
+<h2 id="results-and-discussion"> Results and Discussion</h2>
+
+<p align="justify"> 
+  In this section we will deep dive on model evaluation and model details.
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 
+<h2 id="#results-training-model-performance"> :large_orange_diamond: Model Performance Metrics </h2>
 
+<p align="Left"> 
+Dataset is seperated by two major parts : training and evaluation(testing). More than 70% of data belongs to training set. 
+
+Understanding if model is overfitted to training set, seperating training set 20% as validation has an major role of preventing this problem. 
+
+During training 4 number of metrics are calculated,
+  <ol>
+    <li>Training Loss</li> 
+    <li>Training Accuracy</li> 
+    <li>Validation Loss</li> 
+    <li>Validation Accuracy</li> 
+  </ol>
+
+Ideally, the model must minimize training and validation loss while both training and validation accuracy increases.In that case, 4 of metrics are needed to evaluate the model for training.  
+However this is not the fact in reality. In general a curve like below observed, 
+
+**Bias/Variance Trade-off**
+<p>
+  <img src="docs/overfitting.jpg" width="350" alt="accessibility text">
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
+
+**Model Accuracy and Loss Curves**
+<p>
+  <img src="docs/training_loss.png" width="350" alt="accessibility text">
+</p>
+
+
+<p>
+  <img src="docs/training_acc.png" width="350" alt="accessibility text">
+</p>
+
+
+Evaluating the model with only training metrics is not enought also. By looking model's accuracy and score at test set is also important to understand it's capabilities for generalization. 
+Though, not just test set is enough for testing generalization of the model since there would always inputs with different configurations. E.g. handwritten digits with different backgrounds or
+handwritten digits with bolded characters. 
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h2 id="#results-training-loss"> :large_orange_diamond: Loss Function (Categorical Cross Entropy) </h2>
+
+<p align="Left"> 
+For this classification task, `categorical cross entropy` function is used for the loss function. 
+The purpose of categorical cross entropy function is used when multi-class classiciation's labels are one-hot encoded, which means
+only the correct class keeps its term in the loss. In the FAIR(facebook AI research team), they observed that categorical cross entropy 
+works better than binary cross entropy loss in multi-class classification problems. 
+
+
+**Categorical Cross-Entropy Loss**
+<p>
+  <img src="docs/cross_entropy_loss.png" width="350" alt="accessibility text">
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="future"> Future Work and TODOs</h2>
+
+<p align="justify"> 
+  List of things to progress in this project in the near future,
+
+<h3 id="dataset-extention"> Dataset Extention</h3>
+For now the dataset is very limited to perfect world. It would be better to extend existing dataset with newer images
+by putting different handwritten images to different backgrounds. And then re-training the model with new dataset. 
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h3 id="model-improvements"> Increasing Model Robostness</h3>
+Model's validation is accuracy is pretty low (around 14%) and weak against unseen images especially to images with different backgrounds,
+different tickness. Training a GAN for creating newer samples and then retraining model can help to increase model's robustness.
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h3 id="calculus"> Performing More Complex Operations Like Integral,Limit,Derivative etc.</h3>
+Performing only basic mathematical operations is not that useful. By adding newer symbols to dataset, MathVisual must handle more complex
+mathematical operations like integral,limit,derivative and trigonometry. 
+
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+
+<!-- REFERENCES -->
+<h2 id="references"> :books: References</h2>
+
+<ul>
+  <li>
+    <p>https://gombru.github.io/2018/05/23/cross_entropy_loss/</p>
+  </li>
+</ul>
+
+<!-- CONTRIBUTORS -->
+<h2 id="contributors"> :scroll: Contributors</h2>
+<ul>
+  <li>
+    <p>Furkan Ayik, furkanayik@outlook.com</p>
+  </li>
+</ul>

@@ -39,7 +39,7 @@
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- ABOUT THE PROJECT -->
-<h2 id="about-the-project"> About The Project</h2>
+<h2 id="about-the-project"> :pencil: About The Project</h2>
 
 <p align="justify">   
   This project aims to perform mathematical equations from raw images with the help of deep computer vision models. Two deep learning models are trained for classficiation one is a custom model and resnet50 model.
@@ -49,7 +49,7 @@
 </p>
 
 <!-- PREREQUISITES -->
-<h2 id="prerequisites"> Prerequisites</h2>
+<h2 id="prerequisites"> :fork_and_knife: Prerequisites</h2>
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) <br>
 
@@ -67,7 +67,7 @@ The following open source packages are used in this project:
 
 
 <!-- FOLDER STRUCTURE -->
-<h2 id="folder-structure"> Folder Structure</h2>
+<h2 id="folder-structure"> :cactus: Folder Structure</h2>
 
     code
     .
@@ -100,20 +100,21 @@ The following open source packages are used in this project:
 <!-- DATASET -->
 <h2 id="dataset"> :floppy_disk: Dataset</h2>
 <p> 
-  The WISDM (Wireless Sensor Data Mining) dataset includes raw time-series data collected from accelerometer and gyroscope sensors of a smartphone and smartwatch with their corresponding labels for each activity. The sensor data was collected at a rate of 20 Hz (i.e., every 50ms). Weiss et.al., collected this dataset from 51 subjects who performed 18 different activities listed in Table 2, each for 3 minutes, while having the smartphone in their right pant pocket and wearing the smartwatch in their dominant hand. Each line of the time-series sensor file is considered as input.
 
-<p align="center">
-  <img src="images/Human Activity.gif" alt="Human Activity.gif" display="inline-block" width="60%" height="50%">
+  The HMSD (Handwritten Math Symbols Dataset) dataset includes raw handwritten digits from 0-9 and math symbols (+,-,.,/,x) with total number of 16 classes. 
+
+  The dataset is created from digitally handwritten numbers with white perfect background with a bold type. This fact makes the models trained with that dataset vulnerable to images from wild
+  like different backgrounds or different pencil thicknesses. However it is a good way to prototype overall visual math calculator.
+
+  The following image shows the handwritten numbers in dataset.
 </p>
 
-
- _The WISDM dataset is publicly available. Please refer to the [Link](https://archive.ics.uci.edu/ml/datasets/WISDM+Smartphone+and+Smartwatch+Activity+and+Biometrics+Dataset+)_ 
-
-  The following table shows the 18 activities represented in data set.
+<p align="left">
+  <img src="docs/images_original.png" alt="Overview of Handwritten Numbers" width="5%" height="5%">
 </p>
 
-<p align="center">
-  <img src="images/Activity Table.png" alt="Table1: 18 Activities" width="45%" height="45%">
-</p>
+ _The HMSD dataset is publicly available. Please refer to the [Link](https://www.kaggle.com/clarencezhao/handwritten-math-symbol-dataset)_ 
+
+
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)

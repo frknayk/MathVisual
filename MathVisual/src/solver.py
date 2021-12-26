@@ -66,17 +66,18 @@ def solve(num_1:str,num_2:str,expression:str):
     return str(fnc(num_1_, num_2_))
 
 
+# Test function for all cases
+def test_case(num1_str,num2_str,num1_,num2_):
+    assert( float(solve(num1_str,num2_str,"times"))      == times(num1_,num2_))
+    assert( float(solve(num1_str,num2_str,"decimal"))    == times(num1_,num2_))
+    assert( float(solve(num1_str,num2_str,"plus"))       == sum_(num1_,num2_))
+    assert( float(solve(num1_str,num2_str,"minus"))      == substract(num1_,num2_))
+    if num2_ != 0:
+        assert( float(solve(num1_str,num2_str,"div"))        == div(num1_,num2_))
+    else:
+        assert( solve(num1_str,num2_str,"div")        == None)
+
 def test():
-    # Test function for all cases
-    def test_case(num1_str,num2_str,num1,num2):
-        assert( solve(num1_str,num2_str,"times")      == num1*num2)
-        assert( solve(num1_str,num2_str,"decimal")    == num1*num2)
-        assert( solve(num1_str,num2_str,"plus")       == num1+num2)
-        assert( solve(num1_str,num2_str,"minus")      == num1-num2)
-        if num2 != 0:
-            assert( solve(num1_str,num2_str,"div")        == num1/num2)
-        else:
-            assert( solve(num1_str,num2_str,"div")        == None)
     # Create list of numbers and their string counterparts,
     # Then select random couples from this list to test randomly!
     import random

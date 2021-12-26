@@ -22,7 +22,14 @@
     <li><a href="#dataset"> ➤ Dataset</a></li>
     <li><a href="#preprocessing"> ➤ Preprocessing</a></li>
     <li><a href="#install"> ➤ Installation</a></li>
-    <li><a href="#training-testing"> ➤ Training&Testing&Usage</a></li>
+    <li><a href="#training-testing"> ➤ Training&Testing&Usage</a>
+        <ul>
+          <li><a href="#training">Training Steps</a></li>
+          <li><a href="#training-yours">Train YOUR model</a></li>
+          <li><a href="#test">Test Trained Model</a></li>
+          <li><a href="#usage">Usage</a></li>
+      </ul>
+    </li>
     <li><a href="#results-and-discussion"> ➤ Results and Discussion</a></li>
     <li><a href="#future"> ➤ Future Work and TODOs</a></li>
     <li><a href="#contributors"> ➤ Contributors</a></li>
@@ -144,6 +151,8 @@ The following open source packages are used in this project:
 <p align="justify"> 
   Steps to train your MathVisual (assuming you already downloaded the dataset)
 
+<h2 id="training"> :large_orange_diamond: Training Model</h2>
+
 ```
     conda activate MathVisual
 
@@ -156,3 +165,50 @@ The following open source packages are used in this project:
         - ratio TRAIN_VALIDATION_SPLIT_RATIO(0-1)
         - shuffle SHUFFLE_DATASET_BOOLEAN
 ```
+After installation `checkpoints/` folder will be created under main directory and model will be exported here.
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h2 id="training-yours"> :large_orange_diamond: Training YOUR Model</h2>
+
+  <ol>
+    <li>Create your model under `MathVisual/src/occ/models` folder</li> 
+    <li>Import this model in  `MathVisual/src/occ/train.py` and parse `vision` argument correctly like `custom` and `resnet50`.</li>
+    <li>Start training</li>
+    <li>Once training is finished check checkpoints/ folder to trained model and loss/accuracy csv file under checkpoints/histories</li>
+  </ol>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h2 id="test"> :large_orange_diamond: Testing Trained Model</h2>
+
+```
+    conda activate MathVisual
+
+    python MathVisual/src/occ/inference.py \
+        - dataset ABSOLUTE_PATH_TO_DATASET
+        - path ABSOLUTE_PATH_TO_MODEL
+
+```
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+<h2 id="usage"> :large_orange_diamond: Usage </h2>
+
+```
+    conda activate MathVisual
+
+    python MathVisual/main.py \
+        - image ABSOLUTE_PATH_TO_IMAGE
+        - path ABSOLUTE_PATH_TO_MODEL
+
+```
+
+**Example Output of Usage**
+<p>
+  <img src="docs/res.png" width="350" alt="accessibility text">
+</p>
+
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+
+

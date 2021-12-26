@@ -71,17 +71,7 @@ class DetectorText:
             rect = None
             # Cropping the text block for giving input to OCR
             cropped = im2[y:y + h, x:x + w]
-            cropped_dict = {
-                'img': cropped,
-                'coordinates': {
-                    'x': x,
-                    'y': y,
-                    'w': w,
-                    'h': h
-                },
-                'rect': rect
-            }
-            list_cropped_images_bbox.append(cropped_dict)
+            list_cropped_images_bbox.append((x,cropped))
         return list_cropped_images_bbox
 
     def detect_text(self, img: np.ndarray) -> list:

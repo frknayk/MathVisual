@@ -33,6 +33,7 @@ def times(num1:int,num2:int):
     return num1*num2
 
 def label_symbolic_to_expression(label):
+    """Return function of expression"""
     if label == "plus":
         return sum_
     elif label == "minus":
@@ -42,13 +43,27 @@ def label_symbolic_to_expression(label):
     elif label == "decimal" or label == "times":
         return times
 
+def label_expression_to_str(label):
+    """Return symbol of expression"""
+    if label == "plus":
+        return '+'
+    elif label == "minus":
+        return '-'
+    elif label == "div":
+        return '/'
+    elif label == "decimal" or label == "times":
+        return 'x'
+
+
 def solve(num_1:str,num_2:str,expression:str):
     num_1_ = label_numeric_to_number(num_1)
     num_2_ = label_numeric_to_number(num_2)
     if num_2_ == 0 and expression=='div':
         return None
+    if num_1_ is None or num_2_ is None:
+        return None 
     fnc = label_symbolic_to_expression(expression)
-    return fnc(num_1_, num_2_)
+    return str(fnc(num_1_, num_2_))
 
 
 def test():

@@ -1,8 +1,6 @@
 import os 
 import random
-from cv2 import data
 import numpy as np
-import pandas as pd
 import keras
 import matplotlib.pyplot as plt
 from sklearn import preprocessing

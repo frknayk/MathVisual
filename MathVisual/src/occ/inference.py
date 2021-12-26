@@ -21,13 +21,17 @@ if __name__ == '__main__':
 
     # Load model
     occ_model = OccModel()
-    occ_model.load_model(args.model_path)
+    is_load_succeed = occ_model.load_model(args.model_path)
+    if is_load_succeed is False:
+        import sys
+        sys.exit()
 
     # Create label encoder
     label_encoder = dataset_loader.set_label_encoder(symbols_list)
 
     # Select an image
-    random_indices = np.random.random_integers(0,y_test_labels.__len__(),(y_test_labels.__len__(),))
+    # random_indices = np.random.random_integers(0,y_test_labels.__len__(),)
+    random_indices = np.random.randint(0,y_test_labels.__len__(),(y_test_labels.__len__(),))
     for idx in random_indices:
         label_true = y_test_labels[idx]
         img_orig = X_test[idx]

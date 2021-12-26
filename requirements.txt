@@ -1,3 +1,0 @@
-opencv-python==4.5.4.60
-pytesseract==0.3.8
-numpy==1.21.5

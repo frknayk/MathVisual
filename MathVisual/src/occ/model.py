@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 import pandas as pd
 import keras
+from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 # TensorFlow and tf.keras
 import tensorflow as tf
@@ -85,7 +86,7 @@ class OccModel:
     def load_model(self, path:str):
         """Load trained model"""
         try:
-            self.model = keras.models.load_model(path)
+            self.model = load_model(path)
             return True
         except Exception as E:
             print(E)

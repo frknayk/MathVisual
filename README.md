@@ -20,18 +20,11 @@
     <li><a href="#prerequisites"> ➤ Prerequisites</a></li>
     <li><a href="#folder-structure"> ➤ Folder Structure</a></li>
     <li><a href="#dataset"> ➤ Dataset</a></li>
-    <li><a href="#roadmap"> ➤ Roadmap</a></li>
-    <li>
-      <a href="#preprocessing"> ➤ Preprocessing</a>
-      <ul>
-        <li><a href="#preprocessed-data">Pre-processed data</a></li>
-        <li><a href="#statistical-feature">Statistical feature</a></li>
-        <li><a href="#topological-feature">Topological feature</a></li>
-      </ul>
-    </li>
-    <!--<li><a href="#experiments">Experiments</a></li>-->
+    <li><a href="#preprocessing"> ➤ Preprocessing</a></li>
+    <li><a href="#install"> ➤ Installation</a></li>
+    <li><a href="#training-testing"> ➤ Training&Testing&Usage</a></li>
     <li><a href="#results-and-discussion"> ➤ Results and Discussion</a></li>
-    <li><a href="#references"> ➤ References</a></li>
+    <li><a href="#future"> ➤ Future Work and TODOs</a></li>
     <li><a href="#contributors"> ➤ Contributors</a></li>
   </ol>
 </details>
@@ -110,7 +103,7 @@ The following open source packages are used in this project:
 </p>
 
 <p align="left">
-  <img src="docs/images_original.png" alt="Overview of Handwritten Numbers" width="5%" height="5%">
+  <img src="docs/images_original.png" alt="Overview of Handwritten Numbers" width="25%" height="25%">
 </p>
 
  _The HMSD dataset is publicly available. Please refer to the [Link](https://www.kaggle.com/clarencezhao/handwritten-math-symbol-dataset)_ 
@@ -118,3 +111,48 @@ The following open source packages are used in this project:
 
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<!-- PREPROCESSING -->
+<h2 id="preprocessing"> :hammer: Preprocessing</h2>
+
+<p align="justify"> 
+  Images are just resized into (100,100,3) and then normalized. 
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<!-- INSTALL HOW TO -->
+<h2 id="install"> Installation Steps</h2>
+
+<p align="justify"> 
+  Follow steps below,
+
+    conda env create --file  environment.yml
+    conda activate MathVisual
+    pip install -e .
+
+
+<p align="Left">
+  If you have any problems with opencv try this: pip install opencv-python==4.5.4.60
+</p>
+
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="training-testing"> Training-Testing-Usage</h2>
+
+<p align="justify"> 
+  Steps to train your MathVisual (assuming you already downloaded the dataset)
+
+```
+    conda activate MathVisual
+
+    python MathVisual/src/occ/train.py \
+        - dataset ABSOLUTE_PATH_TO_DATASET
+        - vision TYPE_OF_THE_VISION_MODEL
+        - model SAVE_NAME_OF_THE_TRAINED_MODEL
+        - batch NUMBER_OF_BATCHES
+        - epochs NUMBER_OF_EPOCHS
+        - ratio TRAIN_VALIDATION_SPLIT_RATIO(0-1)
+        - shuffle SHUFFLE_DATASET_BOOLEAN
+```
